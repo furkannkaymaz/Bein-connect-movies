@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:gravity="center"
+    android:keepScreenOn="true">
+
+    <com.google.android.exoplayer2.ui.StyledPlayerView
+        android:id="@+id/player"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:auto_show="false"
+        android:orientation="vertical"
+        app:resize_mode="fixed_height" >
+
+        <TextView
+            android:id="@+id/titleTrailers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:textSize="16sp"
+            android:visibility="gone"
+            android:paddingTop="10dp"
+            android:paddingStart="15dp"
+            android:textColor="@color/white"
+            android:gravity="top"/>
+
+    </com.google.android.exoplayer2.ui.StyledPlayerView>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
