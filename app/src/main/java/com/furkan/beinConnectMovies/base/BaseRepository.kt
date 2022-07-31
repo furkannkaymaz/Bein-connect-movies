@@ -1,6 +1,7 @@
 package com.furkan.beinConnectMovies.base
 
 import com.furkan.beinConnectMovies.utils.Resource
+import com.furkan.beinConnectMovies.utils.model.ErrorType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
@@ -15,11 +16,11 @@ abstract class BaseRepository {
             }catch (throwable : Throwable){
                 when(throwable){
                     is HttpException ->{
-                        Resource.Error("Hata",null,false) // api faill
+                        Resource.Error(ErrorType.API.code,null,false) // api faill
                     }
-                    else -> { Resource.Error("Hata",null,true)
-
-                    } // network error
+                    else -> {
+                        Resource.Error(ErrorType.NETWORK.code,null,true)
+                    }
                 }
             }
         }

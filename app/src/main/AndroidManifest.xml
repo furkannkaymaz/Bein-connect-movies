@@ -15,10 +15,6 @@
         android:theme="@style/Theme.BeinConnectMovies"
         android:usesCleartextTraffic="true">
 
-        <activity
-            android:configChanges="screenSize|smallestScreenSize|screenLayout|orientation|uiMode"
-            android:supportsPictureInPicture="true"
-            android:name=".ui.detail.view.DetailActivity" />
 
         <activity
             android:name=".ui.MainActivity"
