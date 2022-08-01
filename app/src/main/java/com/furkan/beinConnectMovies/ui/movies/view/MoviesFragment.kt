@@ -69,8 +69,6 @@ class MoviesFragment(private val genreObject: GenreObject?) :
             }
 
         }
-
-
     }
 
     private fun getSearchItem() {

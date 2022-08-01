@@ -5,7 +5,6 @@ import com.furkan.beinConnectMovies.data.remote.dto.ApiServices
 import com.furkan.beinConnectMovies.utils.API_KEY
 import javax.inject.Inject
 
-
 class MoviesRepository @Inject constructor(
     private val apiService: ApiServices,
 ) : BaseRepository() {

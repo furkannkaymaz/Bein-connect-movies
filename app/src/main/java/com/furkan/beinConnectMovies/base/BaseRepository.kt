@@ -16,10 +16,10 @@ abstract class BaseRepository {
             }catch (throwable : Throwable){
                 when(throwable){
                     is HttpException ->{
-                        Resource.Error(ErrorType.API.code,null,false) // api faill
+                        Resource.Error("Server Error",null,false)
                     }
                     else -> {
-                        Resource.Error(ErrorType.NETWORK.code,null,true)
+                        Resource.Error("Network Error",null,true)
                     }
                 }
             }

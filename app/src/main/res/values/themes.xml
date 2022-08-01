@@ -13,4 +13,11 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="Theme.SplashScreenTheme" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/appBg</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/exo_controls_fastforward</item>
+        <item name="windowSplashScreenAnimationDuration">1100</item>
+        <item name="postSplashScreenTheme">@style/Theme.BeinConnectMovies</item>
+    </style>
 </resources>

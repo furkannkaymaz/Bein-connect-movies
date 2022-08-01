@@ -8,5 +8,4 @@ sealed class Resource<T>(
     class Success<T>(data: T): Resource<T>(data)
     class Error<T>(message: String, data: T? = null,networkError: Boolean): Resource<T>(data,message,networkError)
 
-    // for using error or loading
 }
