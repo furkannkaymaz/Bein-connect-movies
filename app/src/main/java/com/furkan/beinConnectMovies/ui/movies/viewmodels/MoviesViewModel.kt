@@ -19,6 +19,10 @@ class MoviesViewModel  @Inject constructor(private val movieRepository: MoviesRe
     val getMovies: LiveData<MoviesModel>
         get() = _getMovies
 
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean>
+        get() = _isLoading
+
     private val _error = MutableLiveData<String>()
     val error: LiveData<String>
         get() = _error
@@ -30,13 +34,17 @@ class MoviesViewModel  @Inject constructor(private val movieRepository: MoviesRe
     fun getMovieList(id: Int,page: Int) {
 
         viewModelScope.launch {
+            _isLoading.value = true
             when (val response = movieRepository.getData(id,page)) {
                 is Resource.Success -> {
                     _getMovies.postValue(response.data)
+                    _isLoading.value = false
+
 
                 }
                 is Resource.Error -> {
                     _error.postValue(response.message)
+                    _isLoading.value = false
                 }
             }
         }

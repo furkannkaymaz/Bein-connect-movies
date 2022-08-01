@@ -9,6 +9,7 @@ import com.furkan.beinConnectMovies.data.remote.model.GenreObject
 import com.furkan.beinConnectMovies.databinding.FragmentGenresBinding
 import com.furkan.beinConnectMovies.ui.movies.genre.adapter.GenresPagerAdapter
 import com.furkan.beinConnectMovies.ui.movies.genre.viewmodels.GenresViewModel
+import com.furkan.beinConnectMovies.utils.extensions.toast
 import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
@@ -28,11 +29,8 @@ class GenresFragment : BaseFragment<FragmentGenresBinding, GenresViewModel>() {
        getData()
     }
 
-    private fun getData() {
-        CoroutineScope(Dispatchers.Main).launch {
-            viewModel.getGenreList()
-        }
-
+    override fun observerData() {
+        super.observerData()
         viewModel.getGenre.observe(viewLifecycleOwner, {
 
             list = it.data
@@ -43,6 +41,22 @@ class GenresFragment : BaseFragment<FragmentGenresBinding, GenresViewModel>() {
             }
 
         })
+
+        viewModel.error.observe(viewLifecycleOwner, {
+
+        context?.toast(it.toString())
+
+        })
+
+        viewModel.isLoading.observe(viewLifecycleOwner, {
+            // page state
+        })
+    }
+
+    private fun getData() {
+        CoroutineScope(Dispatchers.Main).launch {
+            viewModel.getGenreList()
+        }
     }
 
     private fun setupViewPager() {

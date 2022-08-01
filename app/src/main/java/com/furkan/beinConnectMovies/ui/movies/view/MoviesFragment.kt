@@ -16,6 +16,7 @@ import com.furkan.beinConnectMovies.databinding.FragmentMoviesBinding
 import com.furkan.beinConnectMovies.ui.detail.view.DetailFragmentArgs
 import com.furkan.beinConnectMovies.ui.movies.adapter.MoviesAdapter
 import com.furkan.beinConnectMovies.ui.movies.viewmodels.MoviesViewModel
+import com.furkan.beinConnectMovies.utils.extensions.toast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 
@@ -38,17 +39,16 @@ class MoviesFragment(private val genreObject: GenreObject?) :
 
         binding?.moviesRv?.adapter = adapter
 
-
+        getData()
         pagingRecyclerView()
     }
 
     override fun observerData() {
         super.observerData()
-        getData()
         viewModel.getMovies.observe(viewLifecycleOwner, {
-            if (searchItem.isNullOrEmpty()){
-                searchItem =it.results
-            }else{
+            if (searchItem.isNullOrEmpty()) {
+                searchItem = it.results
+            } else {
                 it.results?.let { it1 -> searchItem?.addAll(it1) }
             }
 
@@ -59,13 +59,21 @@ class MoviesFragment(private val genreObject: GenreObject?) :
 
         })
 
+        viewModel.error.observe(viewLifecycleOwner, {
+            context?.toast(it.toString())
+        })
+
+        viewModel.isLoading.observe(viewLifecycleOwner, {
+            // page status
+        })
+
     }
 
     private fun getData() {
 
         CoroutineScope(Dispatchers.Main).launch {
             genreObject?.id?.toInt()?.let {
-                viewModel.getMovieList(it,start)
+                viewModel.getMovieList(it, start)
             }
 
         }
@@ -73,7 +81,7 @@ class MoviesFragment(private val genreObject: GenreObject?) :
 
     private fun getSearchItem() {
 
-        binding?.svSearch?.getEditText()?.addTextChangedListener{ text ->
+        binding?.svSearch?.getEditText()?.addTextChangedListener { text ->
 
             CoroutineScope(Dispatchers.IO).launch {
                 context?.let { viewModel.getFilterText(text.toString(), searchItem) }
@@ -95,7 +103,7 @@ class MoviesFragment(private val genreObject: GenreObject?) :
         }
     }
 
-    private fun setRecycleViewData(list : List<MoviesResult>?){
+    private fun setRecycleViewData(list: List<MoviesResult>?) {
 
         adapter.set(list)
         adapter.notifyDataSetChanged()
@@ -147,7 +155,7 @@ class MoviesFragment(private val genreObject: GenreObject?) :
         inflater: LayoutInflater,
         container: ViewGroup?
     ): FragmentMoviesBinding {
-        return FragmentMoviesBinding.inflate(inflater,container,false)
+        return FragmentMoviesBinding.inflate(inflater, container, false)
     }
 
 

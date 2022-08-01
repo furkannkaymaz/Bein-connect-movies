@@ -18,19 +18,26 @@ class GenresViewModel @Inject constructor(private val genreRepository: GenreRepo
     val getGenre: LiveData<GenreModel>
         get() = _getGenre
 
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean>
+        get() = _isLoading
+
     private val _error = MutableLiveData<String>()
     val error: LiveData<String>
         get() = _error
 
     fun getGenreList() {
         viewModelScope.launch {
+            _isLoading.value = true
             when (val response = genreRepository.getData()) {
                 is Resource.Success -> {
                     _getGenre.postValue(response.data)
+                    _isLoading.value = false
 
                 }
                 is Resource.Error -> {
                     _error.postValue(response.message)
+                    _isLoading.value = false
                 }
             }
         }
