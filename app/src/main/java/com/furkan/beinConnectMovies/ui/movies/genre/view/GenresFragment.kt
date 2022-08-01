@@ -97,6 +97,4 @@ class GenresFragment : BaseFragment<FragmentGenresBinding, GenresViewModel>() {
     ): FragmentGenresBinding {
         return FragmentGenresBinding.inflate(inflater,container,false)
     }
-
-
 }

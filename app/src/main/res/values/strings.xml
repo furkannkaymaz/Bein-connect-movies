@@ -8,4 +8,5 @@
     <string name="appName">beIN CONNECT Türkiye</string>
     <string name="serverError">Server hatası</string>
     <string name="networkError">Newtork hatası</string>
+    <string name="noMatchingRecord">Eşleşen Kayıt yok</string>
 </resources>

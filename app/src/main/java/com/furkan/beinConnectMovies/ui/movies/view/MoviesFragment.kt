@@ -89,6 +89,7 @@ class MoviesFragment(private val genreObject: GenreObject?) :
 
             viewModel.filterText.observe(viewLifecycleOwner, {
                 setRecycleViewData(it)
+                checkData(it as ArrayList<MoviesResult>?,getString(R.string.noMatchingRecord))
             })
         }
 
@@ -143,6 +144,23 @@ class MoviesFragment(private val genreObject: GenreObject?) :
             R.id.action_moviesFragment_to_detailFragment,
             DetailFragmentArgs(title.toString()).toBundle()
         )
+    }
+
+    private fun checkData(list: ArrayList<MoviesResult>?, noContentText: String) {
+        if (list.isNullOrEmpty()) {
+            binding?.apply {
+                layNoContent.visibility = View.VISIBLE
+                tvNoContent.text = noContentText
+                moviesRv.visibility = View.INVISIBLE
+            }
+
+        } else {
+
+            binding?.apply {
+                layNoContent.visibility = View.INVISIBLE
+                moviesRv.visibility = View.VISIBLE
+            }
+        }
     }
 
     override fun onResume() {
